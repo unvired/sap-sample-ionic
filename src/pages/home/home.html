@@ -1,0 +1,26 @@
+<ion-header class="nav-header">
+  <ion-navbar>
+    <ion-title>
+      <p style="color:white">Unvired SAP Sample</p>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="nav-header" (click)="menuButtonClicked()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar></ion-searchbar>
+  <ion-list>
+    <ion-list-header color="light" class="header">A</ion-list-header>
+    <ion-item (click)="viewPersonDetail()">
+      <label>Name</label><br>
+      <label style="color:darkgray">Id</label>
+    </ion-item>
+  </ion-list>
+  <ion-fab right bottom>
+    <button ion-fab color="#214564" (click)="addButtonClicked()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>
