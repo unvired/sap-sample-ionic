@@ -24,6 +24,10 @@
     }
 }
 
+ion-header ion-icon.back-button-icon.icon {
+    color: map-get($colors, light);
+}
+
 .input {
   width: 100%;
   height: 45px;

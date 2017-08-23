@@ -4,4 +4,17 @@ page-add-person {
   margin:0;
   width: 100% !important;
 }
+
+.button-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.button {
+   height: 45px !important;
+   text-transform: none;
+}
 }
