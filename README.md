@@ -1,7 +1,7 @@
 # sap-sample-ionic
 Ionic sample application integrating with SAP
 
-system information:
+Your system information:
 
 Cordova CLI: 6.5.0 
 Ionic CLI Version: 2.2.2
