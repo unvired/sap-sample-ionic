@@ -119,7 +119,7 @@ export class GetPerson {
     inputHeader["PERSON_HEADER"] = personHeader
     loading.present()
 
-    ump.sync.submitInSync(ump.sync.requestType.PULL, inputHeader, null, AppConstant.PA_GET_PERSON, true, function (result) {
+    ump.sync.submitInSync(ump.sync.requestType.PULL, inputHeader, null, AppConstant.PA_GET_PERSON, false, function (result) {
       loading.dismiss()
       console.log("Response from server: " + JSON.stringify(result))
       if (result.type === ump.resultType.success) {
@@ -145,9 +145,10 @@ export class GetPerson {
         that.personHeader.WEIGHT = personObj.PERSON_HEADER.WEIGHT
         that.personHeader.CHGNAM = personObj.PERSON_HEADER.CHGNAM
 
-        that.emails = personObj.E_MAIL
+        if (personObj.E_MAIL) {
+          that.emails = personObj.E_MAIL
+        }
         that.didGetPerson = true
-
       }
       else {
         if (result.message.length > 0) {
