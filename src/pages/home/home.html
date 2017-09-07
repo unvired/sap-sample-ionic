@@ -12,14 +12,14 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-searchbar></ion-searchbar>
-  <ion-list>
-    <ion-list-header color="light" class="header">A</ion-list-header>
-    <ion-item (click)="viewPersonDetail()">
-      <label>Name</label><br>
-      <label style="color:darkgray">Id</label>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-item-group *ngFor="let contact of contactHeaders">
+    <ion-item-divider color="light" class="header" sticky>{{contact.section}}</ion-item-divider>
+    <ion-item *ngFor="let person of contact.personHeaders" (click)="viewPersonDetail(person)">
+      <label>{{person.FIRST_NAME}} {{person.LAST_NAME}}</label><br>
+      <label style="color:darkgray">{{person.PERSNUMBER}}</label>
     </ion-item>
-  </ion-list>
+  </ion-item-group>
   <ion-fab right bottom>
     <button ion-fab color="#214564" (click)="addButtonClicked()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>

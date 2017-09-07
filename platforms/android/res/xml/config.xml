@@ -19,6 +19,24 @@
         <param name="android-package" value="io.ionic.keyboard.IonicKeyboard" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="DatabasePlugin">
+        <param name="android-package" value="com.unvired.plugin.AndroidDatabasePlugin" />
+    </feature>
+    <feature name="LoggerPlugin">
+        <param name="android-package" value="com.unvired.plugin.AndroidLoggerPlugin" />
+    </feature>
+    <feature name="SyncEnginePlugin">
+        <param name="android-package" value="com.unvired.plugin.AndroidSyncEnginePlugin" />
+    </feature>
+    <feature name="SettingsPlugin">
+        <param name="android-package" value="com.unvired.plugin.AndroidSettingsPlugin" />
+    </feature>
+    <feature name="LoginPlugin">
+        <param name="android-package" value="com.unvired.plugin.AndroidLoginPlugin" />
+    </feature>
+    <feature name="Permissions">
+        <param name="android-package" value="com.android.plugins.Permissions" />
+    </feature>
     <name>sap-sample-ionic</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -54,7 +72,7 @@
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />

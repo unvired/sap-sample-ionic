@@ -32,6 +32,21 @@
     <feature name="Keyboard">
         <param name="ios-package" onload="true" value="IonicKeyboard" />
     </feature>
+    <feature name="DatabasePlugin">
+        <param name="ios-package" value="IOSDatabasePlugin" />
+    </feature>
+    <feature name="LoggerPlugin">
+        <param name="ios-package" value="IOSLoggerPlugin" />
+    </feature>
+    <feature name="SyncEnginePlugin">
+        <param name="ios-package" value="IOSSyncEnginePlugin" />
+    </feature>
+    <feature name="SettingsPlugin">
+        <param name="ios-package" value="IOSSettingsPlugin" />
+    </feature>
+    <feature name="LoginPlugin">
+        <param name="ios-package" value="IOSLoginPlugin" />
+    </feature>
     <name>sap-sample-ionic</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -93,7 +108,7 @@
     <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
-    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-minSdkVersion" value="19" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />

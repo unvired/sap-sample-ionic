@@ -35,6 +35,21 @@
                         {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"DatabasePlugin\"><param name=\"ios-package\" value=\"IOSDatabasePlugin\"/></feature>"
+                        },
+                        {
+                            "xml": "<feature name=\"LoggerPlugin\"><param name=\"ios-package\" value=\"IOSLoggerPlugin\"/></feature>"
+                        },
+                        {
+                            "xml": "<feature name=\"SyncEnginePlugin\"><param name=\"ios-package\" value=\"IOSSyncEnginePlugin\"/></feature>"
+                        },
+                        {
+                            "xml": "<feature name=\"SettingsPlugin\"><param name=\"ios-package\" value=\"IOSSettingsPlugin\"/></feature>"
+                        },
+                        {
+                            "xml": "<feature name=\"LoginPlugin\"><param name=\"ios-package\" value=\"IOSLoginPlugin\"/></feature>"
                         }
                     ]
                 }
@@ -59,6 +74,9 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "io.ionic.starter"
+        },
+        "cordova-plugin-android-permissions": {
+            "PACKAGE_NAME": "com.ionicframework.sapsampleionic122255"
         }
     },
     "dependent_plugins": {},
@@ -111,6 +129,14 @@
                 "cordova.plugins.Keyboard"
             ],
             "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-android-permissions/www/permissions-dummy.js",
+            "id": "cordova-plugin-android-permissions.Permissions",
+            "pluginId": "cordova-plugin-android-permissions",
+            "clobbers": [
+                "cordova.plugins.permissions"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -119,6 +145,7 @@
         "cordova-plugin-splashscreen": "4.0.3",
         "cordova-plugin-statusbar": "2.2.2",
         "cordova-plugin-whitelist": "1.3.1",
-        "ionic-plugin-keyboard": "2.2.1"
+        "ionic-plugin-keyboard": "2.2.1",
+        "cordova-plugin-android-permissions": "1.0.0"
     }
 }

@@ -15,13 +15,13 @@
 
 <ion-content padding>
   <div>
-    <input type="text" placeholder="Person No." class="input" [(ngModel)]="cityName" /><br><br>
+    <input type="number" placeholder="Person No." class="input" [(ngModel)]="personNumber" /><br><br>
     <div>
-      <button ion-button round class="button">Search</button>
+      <button ion-button round class="button" (click)="getPerson()">Search</button>
     </div>
-    <div class="info-div">
-      <p style="margin-left: 8px;">Name</p>
-      <p style="margin-left: 8px;color: darkgray;">Id</p>
+    <div *ngIf="didGetPerson" class="info-div">
+      <p style="margin-left: 8px;">{{personHeader.FIRST_NAME}} {{personHeader.LAST_NAME}}</p>
+      <p style="margin-left: 8px;color: darkgray;">{{personHeader.PERSNUMBER}}</p>
     </div>
   </div>
 </ion-content>

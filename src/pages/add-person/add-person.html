@@ -15,21 +15,24 @@
 
 <ion-content padding>
   <div class="outer-div">
-    <input type="text" placeholder="First Name" class="input" [(ngModel)]="cityName" />
-    <input type="text" placeholder="Last Name" class="input" [(ngModel)]="cityName" />
-    <input type="text" placeholder="Gender" class="input" [(ngModel)]="cityName" />
-    <input type="text" placeholder="Profession" class="input" [(ngModel)]="cityName" />
-    <input type="text" placeholder="D.O.B" class="input" [(ngModel)]="cityName" />
-    <input type="text" placeholder="Weight (kg)" class="input" [(ngModel)]="cityName" />
-    <input type="text" placeholder="Height (cm)" class="input" [(ngModel)]="cityName" />
+    <input type="text" placeholder="First Name" class="input" [(ngModel)]="personHeader.FIRST_NAME" />
+    <input type="text" placeholder="Last Name" class="input" [(ngModel)]="personHeader.LAST_NAME" />
+    <input type="text" placeholder="Gender" class="input" [(ngModel)]="personHeader.SEX" />
+    <input type="text" placeholder="Profession" class="input" [(ngModel)]="personHeader.PROFESSION" />
+    <input type="text" placeholder="D.O.B" class="input" [(ngModel)]="personHeader.BIRTHDAY" />
+    <input type="text" placeholder="Weight (kg)" class="input" [(ngModel)]="personHeader.WEIGHT" />
+    <input type="text" placeholder="Height (cm)" class="input" [(ngModel)]="personHeader.HEIGHT" />
 
     <div class="button-container">
-      <button ion-button round style="float:left" class="button">Create</button>
+      <button ion-button round style="float:left" class="button"  (click)="createButtonClicked()">Create</button>
       <button ion-button round style="float:right" class="button" (click)="addEmailButtonClicked()">Add Email</button>
     </div>
 
-    <div>
+    <div style="margin-top:25 px;">
       <ion-list>
+        <ion-item *ngFor="let mail of emailIds">
+          <p>{{mail.E_ADDR}}</p>
+        </ion-item>
       </ion-list>
     </div>
 

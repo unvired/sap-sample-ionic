@@ -20,28 +20,30 @@
     <div class="container1-div">
       <br>
       <label class="label">Name</label><br>
-      <label class="value">Name</label><br><br>
+      <label class="value">{{personHeader.FIRST_NAME}} {{personHeader.LAST_NAME}}</label><br><br>
       <label class="label">Number</label><br>
-      <label class="value">Number</label><br><br>
+      <label class="value">{{personHeader.PERSNUMBER}}</label><br><br>
       <label class="label">Gender</label><br>
-      <label class="value">Gender</label><br><br>
+      <label class="value">{{personHeader.SEX}}</label><br><br>
       <label class="label">Profession</label><br>
-      <label class="value">Profession</label><br><br>
+      <label class="value">{{personHeader.PROFESSION}}</label><br><br>
     </div>
 
     <div class="container2-div">
       <br>
       <label class="label">Birthday</label><br>
-      <label class="value">Birthday</label><br><br>
+      <label class="value">{{personHeader.BIRTHDAY}}</label><br><br>
       <label class="label">Height</label><br>
-      <label class="value">Height</label><br><br>
+      <label class="value">{{personHeader.HEIGHT}} Cm</label><br><br>
       <label class="label">Weight</label><br>
-      <label class="value">Weight</label><br><br>
+      <label class="value">{{personHeader.WEIGHT}} Kg</label><br><br>
     </div>
 
-    <div class="container2-div">
+    <div *ngIf="emails.length > 0" class="container2-div">
       <ion-list>
-        <ion-item>abc</ion-item>
+        <ion-item *ngFor="let mail of emails">
+          <p>{{mail.E_ADDR}}</p>
+        </ion-item>
       </ion-list>
     </div>
   </div>

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { ActionSheetController } from 'ionic-angular';
+import { ActionSheetController, Events } from 'ionic-angular';
 
 import { GetPerson } from '../get-person/get-person'
 import { AddPerson } from '../add-person/add-person';
 import { PersonDetail } from '../person-detail/person-detail';
+import { ConatactHeader, PERSON_HEADER } from "../../models/PERSON_HEADER";
+import { AppConstant } from "../../constants/appConstant";
 
 @Component({
   selector: 'page-home',
@@ -12,8 +14,53 @@ import { PersonDetail } from '../person-detail/person-detail';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public actionSheetCtrl: ActionSheetController) {
+  private contactHeaders: ConatactHeader[] = []
+  private personHeaders: PERSON_HEADER[] = []
+  private searchResultDataSource: PERSON_HEADER[] = []
 
+  constructor(public navCtrl: NavController,
+    public actionSheetCtrl: ActionSheetController,
+    public events: Events) {
+    this.events.subscribe('didDownloadPerson', () => {
+      this.getAllPersonHeaders()
+    })
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
+    this.getAllPersonHeaders()
+  }
+
+  getAllPersonHeaders() {
+    console.log("Get All Person Headers from DB.....")
+    ump.db.select(AppConstant.TABLE_NAME_PERSON_HEADER, "", (result) => {
+      if (result.type === ump.resultType.success) {
+        this.personHeaders = result.data
+        this.sortPersonHeader(this.personHeaders)
+        console.log("Person Headers from DB:" + this.personHeaders.length)
+      }
+      else {
+        console.log("FAILURE:" + result.error);
+      }
+    })
+  }
+
+  sortPersonHeader(personHeaders: PERSON_HEADER[]) {
+    let alphabet: any = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    this.contactHeaders = []
+    for (var letter of alphabet) {
+      let letterInLowerCase = letter.toLowerCase;
+      let searchLetter = letter as string
+
+      var matches = personHeaders.filter(person => person.FIRST_NAME.startsWith(searchLetter))
+      console.log("letter" + letter + " matches:" + matches.length)
+      if (matches.length > 0) {
+        let contactHeader = new ConatactHeader()
+        contactHeader.section = letter
+        contactHeader.personHeaders = matches as [PERSON_HEADER]
+        this.contactHeaders.push(contactHeader)
+      }
+    }
   }
 
   menuButtonClicked() {
@@ -46,7 +93,23 @@ export class HomePage {
     this.navCtrl.push(AddPerson)
   }
 
-  viewPersonDetail() {
-    this.navCtrl.push(PersonDetail)
+  viewPersonDetail(personHeader: PERSON_HEADER) {
+    this.navCtrl.push(PersonDetail, ({ incomingPersonHeader: personHeader }))
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.sortPersonHeader(this.personHeaders)
+
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.searchResultDataSource = this.personHeaders.filter((person) => {
+        return ((person.FIRST_NAME.toLowerCase().indexOf(val.toLowerCase()) > -1) || (person.LAST_NAME.toLowerCase().indexOf(val.toLowerCase()) > -1));
+      })
+      this.sortPersonHeader(this.searchResultDataSource)
+    }
   }
 }

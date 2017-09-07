@@ -9,6 +9,9 @@ import { HomePage } from '../pages/home/home';
 import { GetPerson } from '../pages/get-person/get-person';
 import { AddPerson } from '../pages/add-person/add-person';
 import { PersonDetail } from '../pages/person-detail/person-detail';
+import { LoginPage } from "../pages/login/login";
+import { Device } from "@ionic-native/device";
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,8 @@ import { PersonDetail } from '../pages/person-detail/person-detail';
     HomePage,
     GetPerson,
     AddPerson,
-    PersonDetail
+    PersonDetail,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -28,11 +32,14 @@ import { PersonDetail } from '../pages/person-detail/person-detail';
     HomePage,
     GetPerson,
     AddPerson,
-    PersonDetail
+    PersonDetail,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Device,
+    AndroidPermissions,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
