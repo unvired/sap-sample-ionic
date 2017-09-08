@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
 import { NavParams, NavController, AlertController, LoadingController, Navbar, Events } from "ionic-angular";
 import { PERSON_HEADER } from "../../models/PERSON_HEADER";
 import { AppConstant } from "../../constants/appConstant";
@@ -42,41 +42,20 @@ export class GetPerson {
             text: 'Yes',
             handler: () => {
               // Save value into DB
-              ump.db.insert(AppConstant.TABLE_NAME_PERSON_HEADER, this.personHeader, false, (result: ump.callbackResult) => {
+
+              let query = "DELETE FROM " + AppConstant.TABLE_NAME_PERSON_HEADER + " WHERE PERSNUMBER = '" + that.personHeader.PERSNUMBER + "'"
+              console.log("query:" + query)
+              ump.db.executeStatement(query, result => {
                 if (result.type === ump.resultType.success) {
-                  console.log("Added Person Successfully :" + JSON.stringify(result))
-
-                  if (that.emails.length == 0) {
-                    this.events.publish('didDownloadPerson', "")
-                    this.navCtrl.pop()
-                  }
-
-                  for (var i = 0; i < that.emails.length; i++) {
-                    let mail = that.emails[i]
-                    mail.Fid = that.personHeader.Lid
-                    ump.db.insert(AppConstant.TABLE_NAME_E_MAIL, mail, false, (result: ump.callbackResult) => {
-                      if (result.type === ump.resultType.success) {
-                        console.log("Added E_MAIL Successfully :" + JSON.stringify(result))
-                        i = i - 1;
-                        if (i == 0) {
-                          this.events.publish('didDownloadPerson', "")
-                          this.navCtrl.pop()
-                        }
-                      } else {
-                        console.log("Failure: " + JSON.stringify(result));
-                        i = i - 1;
-                        if (i == 0) {
-                          this.navCtrl.pop()
-                        }
-                      }
-                    })
-                  }
-
-                } else {
-                  console.log("Failure: " + JSON.stringify(result));
-                  this.navCtrl.pop()
+                  let query = "DELETE FROM " + AppConstant.TABLE_NAME_E_MAIL + " WHERE PERSNUMBER = '" + that.personHeader.PERSNUMBER + "'"
+                  console.log("query:" + query)
+                  ump.db.executeStatement(query, result => {
+                    console.log("Deleted!!!!")
+                    that.saveHeadersToDB()
+                  })
                 }
-              });
+              })
+
             }
           }, {
             text: 'No',
@@ -170,5 +149,44 @@ export class GetPerson {
       }],
     });
     alert.present();
+  }
+
+  saveHeadersToDB() {
+
+    ump.db.insert(AppConstant.TABLE_NAME_PERSON_HEADER, this.personHeader, false, (result: ump.callbackResult) => {
+      if (result.type === ump.resultType.success) {
+        console.log("Added Person Successfully :" + JSON.stringify(result))
+
+        if (this.emails.length == 0) {
+          this.events.publish('didDownloadPerson', "")
+          this.navCtrl.pop()
+        }
+
+        for (var i = 0; i < this.emails.length; i++) {
+          let mail = this.emails[i]
+          mail.Fid = this.personHeader.Lid
+          ump.db.insert(AppConstant.TABLE_NAME_E_MAIL, mail, false, (result: ump.callbackResult) => {
+            if (result.type === ump.resultType.success) {
+              console.log("Added E_MAIL Successfully :" + JSON.stringify(result))
+              i = i - 1;
+              if (i == 0) {
+                this.events.publish('didDownloadPerson', "")
+                this.navCtrl.pop()
+              }
+            } else {
+              console.log("Failure: " + JSON.stringify(result));
+              i = i - 1;
+              if (i == 0) {
+                this.navCtrl.pop()
+              }
+            }
+          })
+        }
+
+      } else {
+        console.log("Failure: " + JSON.stringify(result));
+        this.navCtrl.pop()
+      }
+    });
   }
 }

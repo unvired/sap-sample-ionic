@@ -41,7 +41,6 @@ export class LoginPage {
 
   login() {
 
-    alert("Device: " + this.device.platform.toLowerCase())
     if (this.device.platform.toLowerCase() == "android") {
       if (!this.isHasPermissions) {
         this.checkRequiredPermission();
@@ -121,9 +120,7 @@ export class LoginPage {
 
   // Check for permission
   checkRequiredPermission() {
-    alert("Inside checkRequiredPermission")
     var permissions = cordova.plugins.permission
-    alert("permissions:" + JSON.stringify(permissions))
     var list = [
       permissions.READ_PHONE_STATE,
       permissions.WRITE_EXTERNAL_STORAGE,

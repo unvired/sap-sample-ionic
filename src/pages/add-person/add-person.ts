@@ -90,8 +90,25 @@ export class AddPerson {
       }
     }
 
-    // Save value into DB
-    ump.db.insert(AppConstant.TABLE_NAME_PERSON_HEADER, this.personHeader, false, (result: ump.callbackResult) => {
+    this.savePersonHeaderToDB()
+
+  }
+
+  updateHeaders() {
+    let query = "DELETE FROM " + AppConstant.TABLE_NAME_PERSON_HEADER + " WHERE PERSNUMBER = '0'"
+      ump.db.executeStatement(query, result => {
+      if (result.type === ump.resultType.success) {
+        let query = "DELETE FROM " + AppConstant.TABLE_NAME_E_MAIL + " WHERE PERSNUMBER = '0'"
+       
+        ump.db.executeStatement(query, result => {
+          this.updatePersonHeader()
+        })
+      }
+    })
+  }
+
+  savePersonHeaderToDB() {
+    ump.db.insert(AppConstant.TABLE_NAME_PERSON_HEADER, this.personHeader, true, (result: ump.callbackResult) => {
       if (result.type === ump.resultType.success) {
         console.log("Added Person Header Successfully to DB :" + JSON.stringify(result))
         if (this.emailIds.length > 0) {
@@ -108,19 +125,21 @@ export class AddPerson {
   }
 
   saveEmailToDB() {
-    for (var i = 0; i < this.emailIds.length; i++) {
-      let email = this.emailIds[i]
+    var count = this.emailIds.length
+    for (var email of this.emailIds) {
       ump.db.insert(AppConstant.TABLE_NAME_E_MAIL, email, false, (result: ump.callbackResult) => {
         if (result.type === ump.resultType.success) {
           console.log("Added Email to DB" + JSON.stringify(result))
-          if (i == this.emailIds.length - 1) {
-            this.sendDataToServer()
+          count = count - 1
+          if (count == 0) {
+             this.sendDataToServer()
           }
         }
         else {
           console.log("Error while inserting Email to DB")
-          if (i == this.emailIds.length - 1) {
-            this.sendDataToServer()
+          count = count - 1
+          if (count == 0) {
+             this.sendDataToServer()
           }
         }
       })
@@ -128,6 +147,7 @@ export class AddPerson {
   }
 
   sendDataToServer() {
+    console.log("Sending data to server.....")
     var that = this
     let loading = this.Loading.create({
       content: "Please wait.",
@@ -137,26 +157,25 @@ export class AddPerson {
     var inputHeader: any = {}
 
     inputHeader["PERSON_HEADER"] = this.personHeader
-    alert("inputHeader:" + JSON.stringify(inputHeader))
-
+    
     loading.present()
     ump.sync.submitInSync(ump.sync.requestType.RQST, inputHeader, null, AppConstant.PA_CREATE_PERSON, false, function (result) {
       loading.dismiss()
-      alert("Result:" + JSON.stringify(result))
+     
       if (result.type === ump.resultType.success) {
         let infoMessage = result.message
         let tokens = infoMessage.split("person number=")
         let perNumber = tokens[1].split(")")[0]
         that.personHeader.PERSNUMBER = Number(perNumber)
 
-        if (this.emailIds.length > 0) {
-          for (var mail of this.emailIds) {
-            mail.perNumber = that.personHeader.PERSNUMBER
+        if (that.emailIds.length > 0) {
+          for (var mail of that.emailIds) {
+            mail.PERSNUMBER = that.personHeader.PERSNUMBER
           }
         }
 
         // Pending :- Update the values in DB 
-        that.updatePersonHeader()
+        that.updateHeaders()
         that.showAlert("", infoMessage)
       }
       else {
@@ -171,12 +190,16 @@ export class AddPerson {
   }
 
   updatePersonHeader() {
-    ump.db.update(AppConstant.TABLE_NAME_PERSON_HEADER, { 'PERSNUMBER': this.personHeader.PERSNUMBER }, { 'PERSNUMBER': 0 }, (result: ump.callbackResult) => {
+    ump.db.insert(AppConstant.TABLE_NAME_PERSON_HEADER, this.personHeader, true, (result: ump.callbackResult) => {
       if (result.type === ump.resultType.success) {
         console.log("Updated Person Header" + JSON.stringify(result))
-        this.events.publish('didDownloadPerson')
+
         if (this.emailIds.length > 0) {
           this.updateEmails()
+        }
+        else {
+          this.events.publish('didDownloadPerson')
+          this.navCtrl.pop()
         }
       }
       else {
@@ -186,7 +209,28 @@ export class AddPerson {
   }
 
   updateEmails() {
+    let count = this.emailIds.length
+    for (var mail of this.emailIds) {
 
+      ump.db.insert(AppConstant.TABLE_NAME_E_MAIL, mail, false, (result: ump.callbackResult) => {
+        if (result.type === ump.resultType.success) {
+          console.log("Updated E_MAIL" + JSON.stringify(result))
+          count = count - 1
+          if (count == 0) {
+            this.events.publish('didDownloadPerson')
+            this.navCtrl.pop()
+          }
+        }
+        else {
+          console.log("Error while updating E_MAIL" + JSON.stringify(result))
+          count = count - 1
+          if (count == 0) {
+            this.events.publish('didDownloadPerson')
+            this.navCtrl.pop()
+          }
+        }
+      })
+    }
   }
 
   showAlert(title: string, message: string) {

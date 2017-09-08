@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ActionSheetController, Events } from 'ionic-angular';
 
@@ -20,7 +20,8 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
     public actionSheetCtrl: ActionSheetController,
-    public events: Events) {
+    public events: Events,
+    public ngZone: NgZone) {
     this.events.subscribe('didDownloadPerson', () => {
       this.getAllPersonHeaders()
     })
@@ -35,9 +36,11 @@ export class HomePage {
     console.log("Get All Person Headers from DB.....")
     ump.db.select(AppConstant.TABLE_NAME_PERSON_HEADER, "", (result) => {
       if (result.type === ump.resultType.success) {
-        this.personHeaders = result.data
-        this.sortPersonHeader(this.personHeaders)
-        console.log("Person Headers from DB:" + this.personHeaders.length)
+        this.ngZone.run(() => {
+          this.personHeaders = result.data
+          this.sortPersonHeader(this.personHeaders)
+          console.log("Person Headers from DB:" + this.personHeaders.length)
+        })
       }
       else {
         console.log("FAILURE:" + result.error);
@@ -53,7 +56,6 @@ export class HomePage {
       let searchLetter = letter as string
 
       var matches = personHeaders.filter(person => person.FIRST_NAME.startsWith(searchLetter))
-      console.log("letter" + letter + " matches:" + matches.length)
       if (matches.length > 0) {
         let contactHeader = new ConatactHeader()
         contactHeader.section = letter
