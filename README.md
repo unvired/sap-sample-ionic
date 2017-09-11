@@ -15,6 +15,53 @@ Node Version: v7.9.0
 Xcode version: Xcode 8.3.3 Build version 8E3004b
 ```
 
+Clone Unvired SAP Sample Project
+
+Clone the GitHub Project by executing the following command in Terminal.
+
+```
+$ git clone https://github.com/unvired/sap-sample-ionic.git
+```
+
+Install npm node modules 
+
+In the Terminal app, do a cd into the project folder and execute the following command.
+
+```
+$npm install 
+```
+
+# To Run the App in iOS
+
+**Install CocoaPods (if not already installed)**
+------------------------------------------------
+
+Install CocoaPods by executing the following command in the Terminal.
+
+```
+$ sudo gem install cocoapods
+```
+
+Note: After you install cocoapods, make sure you set it up by executing the following command in terminal
+
+```
+$ pod setup
+```
+
+In Terminal, do a cd into ios folder.
+
+```
+$ cd platforms/ios
+```
+
+Install Pod by running the following command.
+
+```
+$ pod install --repo-update
+```
+
+This will set up Unvired SAP Sample Project with all the required dependencies.
+
 # Workaround: Error: Cannot read property 'replace' of undefined
 
 ```
