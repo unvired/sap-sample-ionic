@@ -91,15 +91,14 @@ export class AddPerson {
     }
 
     this.savePersonHeaderToDB()
-
   }
 
   updateHeaders() {
     let query = "DELETE FROM " + AppConstant.TABLE_NAME_PERSON_HEADER + " WHERE PERSNUMBER = '0'"
-      ump.db.executeStatement(query, result => {
+    ump.db.executeStatement(query, result => {
       if (result.type === ump.resultType.success) {
         let query = "DELETE FROM " + AppConstant.TABLE_NAME_E_MAIL + " WHERE PERSNUMBER = '0'"
-       
+
         ump.db.executeStatement(query, result => {
           this.updatePersonHeader()
         })
@@ -132,14 +131,14 @@ export class AddPerson {
           console.log("Added Email to DB" + JSON.stringify(result))
           count = count - 1
           if (count == 0) {
-             this.sendDataToServer()
+            this.sendDataToServer()
           }
         }
         else {
           console.log("Error while inserting Email to DB")
           count = count - 1
           if (count == 0) {
-             this.sendDataToServer()
+            this.sendDataToServer()
           }
         }
       })
@@ -157,14 +156,20 @@ export class AddPerson {
     var inputHeader: any = {}
 
     inputHeader["PERSON_HEADER"] = this.personHeader
-    
+
     loading.present()
     ump.sync.submitInSync(ump.sync.requestType.RQST, inputHeader, null, AppConstant.PA_CREATE_PERSON, false, function (result) {
       loading.dismiss()
-     
+      console.log("Response from server:" + JSON.stringify(result))
       if (result.type === ump.resultType.success) {
-        let infoMessage = result.message
-        let tokens = infoMessage.split("person number=")
+        var infoMessage = result.message
+
+        if (infoMessage == undefined || infoMessage.length == 0) {
+          let data = result.data
+          infoMessage = data.InfoMessage[0].message
+        }
+
+        var tokens = infoMessage.split("person number=")
         let perNumber = tokens[1].split(")")[0]
         that.personHeader.PERSNUMBER = Number(perNumber)
 
