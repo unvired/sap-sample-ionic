@@ -313,4 +313,5 @@ if (hasProperty('postBuildExtras')) {
 }
 dependencies{
  compile 'com.unvired:android-cordova-sdk:+'
+ compile 'com.android.support:appcompat-v7:+'
 }

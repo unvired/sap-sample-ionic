@@ -59,24 +59,24 @@ public class MainActivity extends CordovaActivity
     LoginParameters.setAppName("UnviredSAPSample");
     LoginParameters.setLoginTypes(new LoginParameters.LOGIN_TYPE[]{LoginParameters.LOGIN_TYPE.UNVIRED_ID});
     LoginParameters.setLoginScreenType(LoginParameters.LOGIN_SCREEN_TYPE.CUSTOM);
-   // checkForPermissions();
+    checkForPermissions();
     loadUrl(launchUrl);
     }
 
-//      private void checkForPermissions() {
+     private void checkForPermissions() {
 
-//     List<String> permissionList = new ArrayList();
+    List<String> permissionList = new ArrayList();
 
-//     if (!PermissionHelper.hasStoragePermission(this)) {
-//       permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-//       permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//     }
-//     if (!PermissionHelper.hasPhonePermission(this)) {
-//       permissionList.add(Manifest.permission.READ_PHONE_STATE);
-//     }
+    if (!PermissionHelper.hasStoragePermission(this)) {
+      permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+      permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+    if (!PermissionHelper.hasPhonePermission(this)) {
+      permissionList.add(Manifest.permission.READ_PHONE_STATE);
+    }
 
-//     if (permissionList.size() > 0) {
-//       PermissionHelper.requestPermissions(this, permissionList);
-//     }
-//   }
+    if (permissionList.size() > 0) {
+      PermissionHelper.requestPermissions(this, permissionList);
+    }
+  }
 }

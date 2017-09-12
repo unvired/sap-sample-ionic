@@ -49,20 +49,22 @@ export class HomePage {
   }
 
   sortPersonHeader(personHeaders: PERSON_HEADER[]) {
-    let alphabet: any = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    this.contactHeaders = []
-    for (var letter of alphabet) {
-      let letterInLowerCase = letter.toLowerCase;
-      let searchLetter = letter as string
+    this.ngZone.run(() => {
+      let alphabet: any = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      this.contactHeaders = []
+      for (var letter of alphabet) {
+        let letterInLowerCase = letter.toLowerCase;
+        let searchLetter = letter as string
 
-      var matches = personHeaders.filter(person => person.FIRST_NAME.startsWith(searchLetter))
-      if (matches.length > 0) {
-        let contactHeader = new ConatactHeader()
-        contactHeader.section = letter
-        contactHeader.personHeaders = matches as [PERSON_HEADER]
-        this.contactHeaders.push(contactHeader)
+        var matches = personHeaders.filter(person => person.FIRST_NAME.startsWith(searchLetter))
+        if (matches.length > 0) {
+          let contactHeader = new ConatactHeader()
+          contactHeader.section = letter
+          contactHeader.personHeaders = matches as [PERSON_HEADER]
+          this.contactHeaders.push(contactHeader)
+        }
       }
-    }
+    })
   }
 
   menuButtonClicked() {
@@ -74,12 +76,8 @@ export class HomePage {
             console.log('Get Person clicked');
             this.navCtrl.push(GetPerson)
           }
-        }, {
-          text: 'Settings',
-          handler: () => {
-            console.log('Settings clicked');
-          }
-        }, {
+        },
+        {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
@@ -100,6 +98,7 @@ export class HomePage {
   }
 
   getItems(ev: any) {
+    console.log("Filter....")
     // Reset items back to all of the items
     this.sortPersonHeader(this.personHeaders)
 

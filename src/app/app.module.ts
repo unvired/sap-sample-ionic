@@ -10,8 +10,6 @@ import { GetPerson } from '../pages/get-person/get-person';
 import { AddPerson } from '../pages/add-person/add-person';
 import { PersonDetail } from '../pages/person-detail/person-detail';
 import { LoginPage } from "../pages/login/login";
-import { Device } from "@ionic-native/device";
-import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @NgModule({
   declarations: [
@@ -38,8 +36,6 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
   providers: [
     StatusBar,
     SplashScreen,
-    Device,
-    AndroidPermissions,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

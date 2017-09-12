@@ -28,8 +28,7 @@ export class MyApp {
           this.nav.setRoot(LoginPage, { isAuthenticationSuccess: false })
         } else if (result.type === ump.login.listenerType.app_requires_login) {
           console.log("Required Authentication Local....")
-          // this.nav.setRoot(LoginPage, { isAuthenticationSuccess: true })
-          this.rootPage = HomePage
+          this.nav.setRoot(LoginPage, { isAuthenticationSuccess: true })
         } else {
           console.log("Load Home Screen....")
           this.rootPage = HomePage
