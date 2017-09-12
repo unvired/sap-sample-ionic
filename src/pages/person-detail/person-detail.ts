@@ -23,12 +23,12 @@ export class PersonDetail {
   constructor(public navCtrl: NavController,
     public navParams: NavParams) {
     this.personHeader = this.navParams.get("incomingPersonHeader")
-    this.getEmail()
-    this.setupData()
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PersonDetail');
+    this.getEmail()
+    this.setupData()
   }
 
   getEmail() {
