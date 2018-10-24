@@ -65,6 +65,16 @@ $ pod install --repo-update
 
 This will set up Unvired SAP Sample Project with all the required dependencies.
 
+
+**Using the app**
+----------------
+Compile & run the app. When the app starts you can provide the following sample credentials to login:
+```
+Company: unvired
+Username: demo
+Password: Unvired123*
+```
+
 # Workaround: Error: Cannot read property 'replace' of undefined
 
 ```
