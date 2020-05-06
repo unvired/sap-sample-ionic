@@ -1,0 +1,77 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>person-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content> -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button style="color:#f4f4f4"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color:white">Person Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="outer-div" class="ion-padding">
+  <ion-list class="container1-div">
+    <ion-item>
+      <ion-label class="label">Name</ion-label>
+    <!-- </ion-item>
+    <ion-item> -->
+      <ion-label class="value">{{personHeader.FIRST_NAME}} {{personHeader.LAST_NAME}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">Number</ion-label>
+    <!-- </ion-item>
+    <ion-item> -->
+      <ion-label class="value">{{personHeader.PERSNUMBER}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">Gender</ion-label>
+    <!-- </ion-item>
+    <ion-item> -->
+      <ion-label class="value">{{personHeader.SEX}}</ion-label>
+    </ion-item>
+    <ion-item> 
+      <ion-label class="label">Profession</ion-label>
+    <!-- </ion-item>     
+    <ion-item> -->
+      <ion-label class="value">{{personHeader.PROFESSION}}</ion-label>
+    </ion-item> 
+  </ion-list>
+
+  <ion-list class="container2-div">
+    <ion-item>
+      <ion-label class="label">Birthday</ion-label>
+    <!-- </ion-item>
+    <ion-item> -->
+      <ion-label class="value">{{personHeader.BIRTHDAY}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">Height</ion-label>
+    <!-- </ion-item>
+    <ion-item> -->
+      <ion-label class="value">{{personHeader.HEIGHT}} Cm</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">Weight</ion-label>
+    <!-- </ion-item>
+    <ion-item> -->
+      <ion-label class="value">{{personHeader.WEIGHT}} Kg</ion-label>
+    </ion-item>    
+  </ion-list>
+
+  <ion-item *ngIf="emails.length > 0" class="container2-div">
+    <ion-list>
+      <ion-item *ngFor="let mail of emails">
+        <ion-label>{{mail.E_ADDR}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-item>
+
+</ion-content>
