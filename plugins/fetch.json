@@ -1,0 +1,10 @@
+{
+  "cordova-plugin-unvired-sdk": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/unvired/cordova-plugin-unvired-sdk"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}

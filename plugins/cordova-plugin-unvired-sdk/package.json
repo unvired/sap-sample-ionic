@@ -1,0 +1,80 @@
+{
+  "_from": "git+https://github.com/unvired/cordova-plugin-unvired-sdk.git",
+  "_id": "cordova-plugin-unvired-sdk@0.0.1",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-unvired-sdk",
+  "_phantomChildren": {
+    "inherits": "2.0.4",
+    "string_decoder": "1.1.1",
+    "util-deprecate": "1.0.2"
+  },
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/unvired/cordova-plugin-unvired-sdk",
+    "rawSpec": "https://github.com/unvired/cordova-plugin-unvired-sdk",
+    "saveSpec": "git+https://github.com/unvired/cordova-plugin-unvired-sdk.git",
+    "fetchSpec": "https://github.com/unvired/cordova-plugin-unvired-sdk.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/unvired/cordova-plugin-unvired-sdk.git#68b5bef22d844b8cdb0c84b5ae575901601e7643",
+  "_spec": "https://github.com/unvired/cordova-plugin-unvired-sdk",
+  "_where": "/Users/pavithra/sap-sample-ionic",
+  "author": {
+    "name": "Unvired Inc."
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Venkadesh P",
+      "email": "venkadesh.p@unvired.com",
+      "url": "http://unvired.com"
+    },
+    {
+      "name": "Srinidhi Rao",
+      "email": "srinidhi.rao@unvired.com",
+      "url": "http://unvired.com"
+    },
+    {
+      "name": "Tarak Kar",
+      "email": "tarak.kar@unvired.com",
+      "url": "http://unvired.com"
+    },
+    {
+      "name": "Srini Subramanian",
+      "email": "srini@unvired.com",
+      "url": "http://unvired.com"
+    }
+  ],
+  "cordova": {
+    "id": "cordova-plugin-unvired-sdk",
+    "platforms": [
+      "ios",
+      "android",
+      "browser"
+    ]
+  },
+  "dependencies": {
+    "readable-stream": "^3.4.0",
+    "uglify-es": "^3.3.9"
+  },
+  "deprecated": false,
+  "description": "Unvired Cordova Plugin",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-uglify": "^3.0.2"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "license": "UNLICENSED",
+  "main": "gulpfile.js",
+  "name": "cordova-plugin-unvired-sdk",
+  "version": "0.0.1"
+}

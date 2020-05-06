@@ -1,5 +1,7 @@
 {
   "name": "sap-sample-ionic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
