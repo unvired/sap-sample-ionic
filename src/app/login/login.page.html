@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar class="outer-div">
+    <ion-title class="app-name">Unvired-SAP-Sample</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="outer-div" class="ion-padding">
+  <!-- <ion-list-header>
+    <ion-label class="app-name">Unvired-SAP-Sample</ion-label>
+  </ion-list-header> -->
+  <ion-list>
+    <ion-input *ngIf="!isAuthenticationSuccess" type="text" [(ngModel)]="url" autocapitalize="off"></ion-input>
+    <ion-input *ngIf="!isAuthenticationSuccess" type="text" placeholder="company" [(ngModel)]="company"></ion-input>
+    <ion-input type="text" placeholder="Username" [(ngModel)]="username" autocapitalize="off"></ion-input>
+    <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+    <ion-button (click)="login()" expand="block">Login</ion-button>
+  </ion-list>
+</ion-content>
