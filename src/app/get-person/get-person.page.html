@@ -1,0 +1,32 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>get-person</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content> -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button style="color:#f4f4f4" (click)="back()">
+        <ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title style="color:white">Search Person</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-input type="number" placeholder="Person No." class="input" [(ngModel)]="personNumber"></ion-input>
+    <!-- <ion-item> -->
+      <ion-button shape='round' class="button" (click)="getPerson()">Search</ion-button>
+    <!-- </ion-item> -->
+    <ion-item *ngIf="didGetPerson" class="info-div">
+      <ion-label style="margin-left: 8px;">{{personHeader.FIRST_NAME}}  {{personHeader.LAST_NAME}}</ion-label>
+      <ion-label style="margin-left: 8px;color: darkgray;">{{personHeader.PERSNUMBER}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
