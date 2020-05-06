@@ -26,6 +26,7 @@ temp/
 www/
 platforms/
 plugins/
+resources/
 hooks/
 $RECYCLE.BIN/
 build/
