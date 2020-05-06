@@ -1,0 +1,43 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>add-person</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content> -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button style="color:#f4f4f4"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color:white">Add/Create Person</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-list class="outer-div">
+    <ion-input type="text" placeholder="First Name" class="input" [(ngModel)]="personHeader.FIRST_NAME"></ion-input>
+    <ion-input type="text" placeholder="Last Name" class="input" [(ngModel)]="personHeader.LAST_NAME"></ion-input>
+    <ion-input type="text" placeholder="Gender" class="input" [(ngModel)]="personHeader.SEX"></ion-input>
+    <ion-input type="text" placeholder="Profession" class="input" [(ngModel)]="personHeader.PROFESSION"></ion-input>
+    <ion-input type="text" placeholder="D.O.B" class="input" [(ngModel)]="personHeader.BIRTHDAY"></ion-input>
+    <ion-input type="text" placeholder="Weight (kg)" class="input" [(ngModel)]="personHeader.WEIGHT"></ion-input>
+    <ion-input type="text" placeholder="Height (cm)" class="input" [(ngModel)]="personHeader.HEIGHT"></ion-input>
+
+    <ion-item lines="none" class="button-container">
+      <ion-button shape="round" style="float:left" class="button"  (click)="createButtonClicked()">Create</ion-button>
+      <ion-button shape="round" style="float:right" class="button" (click)="addEmailButtonClicked()">Add Email</ion-button>
+    </ion-item>
+    
+    <ion-list style="margin-top:25 px;">
+      <ion-item *ngFor="let mail of emailIds">
+        <ion-label>{{mail.E_ADDR}}</ion-label>
+      </ion-item>
+    </ion-list>
+
+  </ion-list>
+</ion-content>
