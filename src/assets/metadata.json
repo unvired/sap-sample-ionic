@@ -1,0 +1,199 @@
+{
+    "name":"UNVIRED_SAP_SAMPLE",
+    "description":"Unvired SAP Sample",
+    "version":"1.0",
+    "PERSON":{
+        "description":"ME Relica: Person (Sample Application)",
+        "attachments":false,
+        "onConflict":"SERVER_WINS",
+        "save":true,
+        "PERSON_HEADER":{
+            "className":"com.unvired.sapsample.gen.be.PERSON_HEADER",
+            "header":true,
+            "field":[
+                {
+                    "name":"MANDT",
+                    "description":"Client",
+                    "isGid":true,
+                    "length":"3",
+                    "mandatory":true,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"PERSNUMBER",
+                    "description":"Person Number (Sample Application)",
+                    "isGid":true,
+                    "length":"10",
+                    "mandatory":true,
+                    "sqlType":"INTEGER"
+                },
+                {
+                    "name":"FIRST_NAME",
+                    "description":"First Name (Sample Application)",
+                    "isGid":false,
+                    "length":"40",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"LAST_NAME",
+                    "description":"Last Name (Sample Application)",
+                    "isGid":false,
+                    "length":"40",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"PROFESSION",
+                    "description":"Profession (Sample Application)",
+                    "isGid":false,
+                    "length":"40",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"SEX",
+                    "description":"Gender (Sample Application)",
+                    "isGid":false,
+                    "length":"1",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"BIRTHDAY",
+                    "description":"Birthday (Sample Application)",
+                    "isGid":false,
+                    "length":"10",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"WEIGHT",
+                    "description":"Weight (Sample Application)",
+                    "isGid":false,
+                    "length":"3",
+                    "mandatory":false,
+                    "sqlType":"REAL"
+                },
+                {
+                    "name":"HEIGHT",
+                    "description":"Height (Sample Application)",
+                    "isGid":false,
+                    "length":"3",
+                    "mandatory":false,
+                    "sqlType":"REAL"
+                },
+                {
+                    "name":"CATEGORY1",
+                    "description":"Category1 (Sample Application)",
+                    "isGid":false,
+                    "length":"2",
+                    "mandatory":false,
+                    "sqlType":"INTEGER"
+                },
+                {
+                    "name":"CATEGORY2",
+                    "description":"Category2 (Sample Application)",
+                    "isGid":false,
+                    "length":"20",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"CREDAT",
+                    "description":"Created on",
+                    "isGid":false,
+                    "length":"10",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"CRENAM",
+                    "description":"Created by",
+                    "isGid":false,
+                    "length":"12",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"CRETIM",
+                    "description":"Create Time",
+                    "isGid":false,
+                    "length":"8",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"CHGDAT",
+                    "description":"Last Changed on",
+                    "isGid":false,
+                    "length":"10",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"CHGNAM",
+                    "description":"Last Changed by",
+                    "isGid":false,
+                    "length":"12",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"CHGTIM",
+                    "description":"Last Changed at",
+                    "isGid":false,
+                    "length":"8",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                }
+            ]
+        },
+        "E_MAIL":{
+            "className":"com.unvired.sapsample.gen.be.E_MAIL",
+            "field":[
+                {
+                    "name":"MANDT",
+                    "description":"Client",
+                    "isGid":true,
+                    "length":"3",
+                    "mandatory":true,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"PERSNUMBER",
+                    "description":"Person Number (Sample Application)",
+                    "isGid":true,
+                    "length":"10",
+                    "mandatory":true,
+                    "sqlType":"INTEGER"
+                },
+                {
+                    "name":"SEQNO_E_MAIL",
+                    "description":"Seqeunce Number (Sample Application)",
+                    "isGid":true,
+                    "length":"10",
+                    "mandatory":true,
+                    "sqlType":"INTEGER"
+                },
+                {
+                    "name":"E_ADDR",
+                    "description":"E-mail Address (Sample Application)",
+                    "isGid":false,
+                    "length":"40",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                },
+                {
+                    "name":"E_ADDR_TEXT",
+                    "description":"E-mail Address Description (Sample Application)",
+                    "isGid":false,
+                    "length":"40",
+                    "mandatory":false,
+                    "sqlType":"TEXT"
+                }
+            ]
+        }
+    },
+    "Index":[]
+}
