@@ -19,6 +19,6 @@ export class E_MAIL extends DataStructure {
 
     constructor(personHeader: PERSON_HEADER) {
         super();
-        this.Fid = personHeader.Lid;
+        this.FID = personHeader.LID;
     }
 }

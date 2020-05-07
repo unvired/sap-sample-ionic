@@ -1,6 +1,6 @@
 export class DataStructure {
-    Lid = this.getGuid();
-    Fid: string;
+    LID = this.getGuid();
+    FID: string;
 
     getGuid() {
 
