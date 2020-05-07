@@ -113,9 +113,11 @@ export class AddPersonPage implements OnInit {
   }
 
   async saveEmailToDB() {
+    const fetchperson = await this.unviredCordovaSdk.dbSelect(AppConstant.TABLE_NAME_PERSON_HEADER, '');
+    console.log('fetch person header: ' + JSON.stringify(fetchperson));
     let count = this.emailIds.length;
     for (const email of this.emailIds) {
-      const insertRst = await this.unviredCordovaSdk.dbUpdate(AppConstant.TABLE_NAME_E_MAIL, email, 'LID = "' + email.Lid + '"');
+      const insertRst = await this.unviredCordovaSdk.dbInsertOrUpdate(AppConstant.TABLE_NAME_E_MAIL, email, false);
       if (insertRst.type === ResultType.success) {
         console.log('Added Email to DB' + JSON.stringify(insertRst));
         count = count - 1;
@@ -168,7 +170,12 @@ export class AddPersonPage implements OnInit {
         }
       }
        // Pending :- Update the values in DB
-      this.updateHeaders();
+      if (this.platform.is('ios') || this.platform.is('android')) {
+        this.updateHeaders();
+       } else {
+        this.updatePersonHeader();
+       }
+
       this.showAlert('', infoMessage);
     } else {
       this.dismissLoading();
@@ -199,14 +206,13 @@ export class AddPersonPage implements OnInit {
   async updateEmails() {
     let count = this.emailIds.length;
     for (const mail of this.emailIds) {
-      const insertedData = await this.unviredCordovaSdk.dbUpdate(AppConstant.TABLE_NAME_E_MAIL, mail, 'LID = "' + mail.Lid + '"');
+      const insertedData = await this.unviredCordovaSdk.dbInsertOrUpdate(AppConstant.TABLE_NAME_E_MAIL, mail, false);
       const fetch = await this.unviredCordovaSdk.dbSelect(AppConstant.TABLE_NAME_E_MAIL, '');
       console.log('fetch >>>> ' + JSON.stringify(fetch));
       if (insertedData.type === ResultType.success) {
         console.log('Updated E_MAIL' + JSON.stringify(insertedData));
         count = count - 1;
         if (count === 0) {
-          // this.events.publish('didDownloadPerson', '');
           this.events.sub.next('');
           this.navCtrl.pop();
         }
@@ -214,7 +220,6 @@ export class AddPersonPage implements OnInit {
         console.log('Error while updating E_MAIL' + JSON.stringify(insertedData));
         count = count - 1;
         if (count === 0) {
-          // this.events.publish('didDownloadPerson', '');
           this.events.sub.next('');
           this.navCtrl.pop();
         }
