@@ -24,7 +24,11 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic-native/unvired-cordova-sdk": "^5.25.0",
     "@ionic/angular": "^5.0.0",
+    "cordova-android": "^8.1.0",
     "cordova-browser": "^6.0.0",
+    "cordova-ios": "^5.1.1",
+    "cordova-plugin-androidx": "^1.0.2",
+    "cordova-plugin-androidx-adapter": "^1.1.0",
     "cordova-plugin-unvired-sdk": "git+https://github.com/unvired/cordova-plugin-unvired-sdk.git",
     "core-js": "^2.5.4",
     "rxjs": "~6.5.1",
@@ -69,10 +73,14 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-androidx": {},
+      "cordova-plugin-androidx-adapter": {}
     },
     "platforms": [
-      "browser"
+      "browser",
+      "android",
+      "ios"
     ]
   }
 }
