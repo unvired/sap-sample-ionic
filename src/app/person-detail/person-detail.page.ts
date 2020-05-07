@@ -29,13 +29,10 @@ export class PersonDetailPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PersonDetail');
-    this.getEmail();
-    this.setupData();
   }
 
   async getEmail() {
-    const dbRst = await this.unviredCordovaSdk.dbSelect(AppConstant.TABLE_NAME_E_MAIL,  `PERSNUMBER = '${this.personHeader.PERSNUMBER}'`);
+    const dbRst = await this.unviredCordovaSdk.dbSelect(AppConstant.TABLE_NAME_E_MAIL, `PERSNUMBER = '${this.personHeader.PERSNUMBER}'`);
     if (dbRst.type === ResultType.success) {
       this.emails = dbRst.data;
     } else {
@@ -44,21 +41,21 @@ export class PersonDetailPage implements OnInit {
   }
 
   setupData() {
-    if (this.personHeader.PROFESSION.length === 0 || this.personHeader.PROFESSION === undefined || this.personHeader.PROFESSION === '') {
+    if (this.personHeader.PROFESSION === undefined || this.personHeader.PROFESSION === '') {
       this.personHeader.PROFESSION = 'Profession';
     }
 
-    if (this.personHeader.BIRTHDAY.length === 0 || this.personHeader.BIRTHDAY === undefined || this.personHeader.BIRTHDAY === '') {
+    if (this.personHeader.BIRTHDAY === undefined || this.personHeader.BIRTHDAY === '') {
       this.personHeader.BIRTHDAY = 'Birthday';
     }
 
     const height = String(this.personHeader.HEIGHT);
-    if (height.length === 0 || height === 'undefined') {
+    if (height === undefined || height === '') {
       this.personHeader.HEIGHT = 0;
     }
 
     const weight = String(this.personHeader.WEIGHT);
-    if (weight.length === 0 || weight === 'undefined') {
+    if (weight === '' || weight === undefined) {
       this.personHeader.WEIGHT = 0;
     }
   }
