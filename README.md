@@ -5,17 +5,28 @@ Ionic sample application integrating with SAP
 $ ionic info
 cli packages: (/usr/local/lib/node_modules)
 
-@ionic/cli-utils  : 1.9.2
-ionic (Ionic CLI) : 3.9.2
+Ionic:
+
+   Ionic CLI                     : 5.4.16 (/usr/local/lib/node_modules/ionic)
+   Ionic Framework               : @ionic/angular 5.1.0
+   @angular-devkit/build-angular : 0.803.26
+   @angular-devkit/schematics    : 8.3.26
+   @angular/cli                  : 8.3.26
+   @ionic/angular-toolkit        : 2.2.0
+
+Utility:
+
+   cordova-res (update available: 0.14.0) : 0.12.0
+   native-run                             : 1.0.0
 
 System:
 
-Node : v6.11.2
-npm  : 3.10.10 
-OS   : macOS Sierra
-```
+   NodeJS : v12.16.2 (/usr/local/bin/node)
+   npm    : 6.14.4
+   OS     : macOS Catalina
 
 # Clone Unvired SAP Sample Project
+-----------------------------------
 
 Clone the GitHub Project by executing the following command in Terminal.
 
@@ -31,37 +42,25 @@ In the Terminal app, do a cd into the project folder and execute the following c
 $npm install 
 ```
 
-# To Run the App in iOS
-
-**Install CocoaPods (if not already installed)**
-------------------------------------------------
-
-Install CocoaPods by executing the following command in the Terminal.
-
-```
-$ sudo gem install cocoapods
-```
-
-Note: After you install cocoapods, make sure you set it up by executing the following command in terminal
-
-```
-$ pod setup
-```
+# To Run the App 
 
 **Install Unvired SDK**
 -----------------------
 
-In Terminal, do a cd into ios folder.
+$ ionic cordova plugin add https://github.com/unvired/cordova-plugin-unvired-sdk
+$ npm install @ionic-native/unvired-cordova-sdk
 
-```
-$ cd platforms/ios
-```
+** Add platforms, build and run**
+---------------------------------
+$ ionic cordova platform add Browser/ android/ ios
+$ ionic cordova build browser/ android
+$ ionic cordova run browser/ android
 
-Install Pod by running the following command.
+** To run in ios Platform **
+----------------------------
+$ ionic cordova prepare ios
 
-```
-$ pod install --repo-update
-```
+Now use the /Users/local/sap-sample-ionic/platforms/ios/MyApp.xcworkspace folder in xcode and run
 
 This will set up Unvired SAP Sample Project with all the required dependencies.
 
