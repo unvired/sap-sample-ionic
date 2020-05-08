@@ -410,14 +410,14 @@ module.exports.insertOrUpdate = function (sucessCallback, errorCallback, options
 
 module.exports.deleteRecord = function (sucessCallback, errorCallback, options) {
 
-    var tableName = options.tableName;
-    var whereClause = options.whereClause;
-    var tableCollection = webDb.select(tableName, whereClause);
-    if (tableCollection != null && tableCollection.length > 0) {
-        tableCollection.forEach(function (element) {
-            webDb.deleteCascade(tableName, element);
-        });
-    }
+    var tableName = options[0].tableName;
+    var whereClause = options[0].whereClause;
+    var tableCollection = webDb.deleteRecord(tableName, whereClause);
+    // if (tableCollection != null && tableCollection.length > 0) {
+    //     tableCollection.forEach(function (element) {
+    //         webDb.deleteCascade(tableName, element);
+    //     });
+    // }
     helper.sendSuccess("", sucessCallback);
 };
 
