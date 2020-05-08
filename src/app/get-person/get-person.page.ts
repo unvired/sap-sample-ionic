@@ -32,10 +32,6 @@ export class GetPersonPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewDidLoad() {
-
-  }
-
   async back() {
     console.log('ionViewDidLoad GetPerson');
     if (this.didGetPerson) {
@@ -45,19 +41,12 @@ export class GetPersonPage implements OnInit {
         buttons: [{
           text: 'Yes',
           handler: async () => {
-            const fetchData2 = await this.unviredCordovaSdk.dbSelect(AppConstant.TABLE_NAME_PERSON_HEADER, '');
-            console.log('fetch data of person header ' + JSON.stringify(fetchData2));
-            const lid = fetchData2.data[0].LiD;
-            if (this.platform.is('ios') || this.platform.is('android')) {
               // tslint:disable-next-line:max-line-length
-            const rst = await this.unviredCordovaSdk.dbDelete(AppConstant.TABLE_NAME_PERSON_HEADER, `LID = '${this.personHeader.PERSNUMBER}'`);
+            const rst = await this.unviredCordovaSdk.dbDelete(AppConstant.TABLE_NAME_PERSON_HEADER, `PERSNUMBER = '${this.personHeader.PERSNUMBER}'`);
             if (rst.type === ResultType.success) {
               // tslint:disable-next-line:max-line-length
               const rst1 = await this.unviredCordovaSdk.dbDelete(AppConstant.TABLE_NAME_E_MAIL, `PERSNUMBER = '${this.personHeader.PERSNUMBER}'`);
               console.log('Deleted!!!!' + rst1);
-              this.saveHeadersToDB();
-            }
-            } else {
               this.saveHeadersToDB();
             }
           }
@@ -72,10 +61,6 @@ export class GetPersonPage implements OnInit {
     } else {
       this.navCtrl.pop();
     }
-  }
-
-  ionViewWillLeave() {
-
   }
 
   async getPerson() {
@@ -137,25 +122,12 @@ export class GetPersonPage implements OnInit {
     }
   }
 
-  async showAlert(title: string, message: string) {
-    const alert = await this.alertCtrl.create({
-      header: title,
-      subHeader: message,
-      buttons: [{
-        text: 'Ok'
-      }],
-    });
-    alert.present();
-  }
-
   async saveHeadersToDB() {
-    const fetchData2 = await this.unviredCordovaSdk.dbSelect(AppConstant.TABLE_NAME_PERSON_HEADER, '');
-    console.log('fetch data of person header ' + JSON.stringify(fetchData2));
     const insertRst = await this.unviredCordovaSdk.dbInsertOrUpdate(AppConstant.TABLE_NAME_PERSON_HEADER, this.personHeader, true);
     if (insertRst.type === ResultType.success) {
       console.log('Added Person Successfully :' + JSON.stringify(insertRst));
 
-      if (this.emails === undefined) {
+      if (this.emails.length === 0 || this.emails === undefined) {
         this.events.sub.next('');
         this.navCtrl.pop();
       } else if (this.emails.length > 0) {
@@ -195,5 +167,16 @@ export class GetPersonPage implements OnInit {
     setTimeout(() => {
       this.load.dismiss();
     }, 2000);
+  }
+
+  async showAlert(title: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header: title,
+      subHeader: message,
+      buttons: [{
+        text: 'Ok'
+      }],
+    });
+    alert.present();
   }
 }

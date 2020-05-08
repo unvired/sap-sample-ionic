@@ -17,6 +17,7 @@ export class AddPersonPage implements OnInit {
   emailIds: E_MAIL[] = [];
   load: HTMLIonLoadingElement;
   lid: '';
+  isupdate = false;
 
   constructor(private platform: Platform,
               public navCtrl: NavController,
@@ -28,10 +29,6 @@ export class AddPersonPage implements OnInit {
               ) { }
 
   ngOnInit() {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddPerson');
   }
 
   async addEmailButtonClicked() {
@@ -88,24 +85,20 @@ export class AddPersonPage implements OnInit {
     this.savePersonHeaderToDB();
   }
 
-  async updateHeaders() {
-    const result = await this.unviredCordovaSdk.dbDelete(AppConstant.TABLE_NAME_PERSON_HEADER, 'PERSNUMBER = "' + 0 + '"');
-    console.log('Deleted record ###### ' + JSON.stringify(result));
-    if (result.type === ResultType.success) {
-      const rslt = await this.unviredCordovaSdk.dbDelete(AppConstant.TABLE_NAME_E_MAIL, 'PERSNUMBER = "' + 0 + '"');
-      console.log('Delete record of table email ' + JSON.stringify(rslt));
-      this.updatePersonHeader();
-    }
-  }
-
   async savePersonHeaderToDB() {
-    const insertRst = await this.unviredCordovaSdk.dbInsert(AppConstant.TABLE_NAME_PERSON_HEADER, this.personHeader, true);
+    const insertRst = await this.unviredCordovaSdk.dbInsertOrUpdate(AppConstant.TABLE_NAME_PERSON_HEADER, this.personHeader, true);
+    console.log('Inert or Updated Person Header' + JSON.stringify(insertRst));
     if (insertRst.type === ResultType.success) {
-      console.log('Added Person Header Successfully to DB :' + JSON.stringify(insertRst));
       if (this.emailIds.length > 0) {
         this.saveEmailToDB();
       } else {
-        this.sendDataToServer();
+        if (this.isupdate) {
+          this.isupdate = false;
+          this.events.sub.next('');
+          this.navCtrl.pop();
+        } else {
+          this.sendDataToServer();
+        }
       }
     } else {
       console.log('Error while inserting Person Header to DB: ' + JSON.stringify(insertRst));
@@ -113,8 +106,6 @@ export class AddPersonPage implements OnInit {
   }
 
   async saveEmailToDB() {
-    const fetchperson = await this.unviredCordovaSdk.dbSelect(AppConstant.TABLE_NAME_PERSON_HEADER, '');
-    console.log('fetch person header: ' + JSON.stringify(fetchperson));
     let count = this.emailIds.length;
     for (const email of this.emailIds) {
       const insertRst = await this.unviredCordovaSdk.dbInsertOrUpdate(AppConstant.TABLE_NAME_E_MAIL, email, false);
@@ -122,13 +113,25 @@ export class AddPersonPage implements OnInit {
         console.log('Added Email to DB' + JSON.stringify(insertRst));
         count = count - 1;
         if (count === 0) {
-          this.sendDataToServer();
+          if (this.isupdate) {
+            this.isupdate = false;
+            this.events.sub.next('');
+            this.navCtrl.pop();
+          } else {
+           this.sendDataToServer();
+          }
         }
       } else {
-        console.log('Error while inserting Email to DB');
+        console.log('Error while inserting Email to DB' + JSON.stringify(insertRst));
         count = count - 1;
         if (count === 0) {
-          this.sendDataToServer();
+          if (this.isupdate) {
+            this.isupdate = false;
+            this.events.sub.next('');
+            this.navCtrl.pop();
+          } else {
+           this.sendDataToServer();
+          }
         }
       }
     }
@@ -160,21 +163,13 @@ export class AddPersonPage implements OnInit {
       const perNumber = tokens[1].split(')')[0];
       this.personHeader.PERSNUMBER = Number(perNumber);
 
-      // tslint:disable-next-line:max-line-length
-      const dbData1 = await this.unviredCordovaSdk.dbSelect(AppConstant.TABLE_NAME_PERSON_HEADER, `PERSNUMBER = '${this.personHeader.PERSNUMBER}'`);
-      console.log('Data from person table /// ' + JSON.stringify(dbData1));
-
       if (this.emailIds.length > 0) {
         for (const mail of this.emailIds) {
           mail.PERSNUMBER = this.personHeader.PERSNUMBER;
         }
       }
        // Pending :- Update the values in DB
-      if (this.platform.is('ios') || this.platform.is('android')) {
-        this.updateHeaders();
-       } else {
-        this.updatePersonHeader();
-       }
+      this.updateHeaders();
 
       this.showAlert('', infoMessage);
     } else {
@@ -187,43 +182,14 @@ export class AddPersonPage implements OnInit {
     }
   }
 
-  async updatePersonHeader() {
-    const insertRst = await this.unviredCordovaSdk.dbInsert(AppConstant.TABLE_NAME_PERSON_HEADER, this.personHeader, true);
-    console.log('####### update data ######## ' + JSON.stringify(insertRst));
-    if (insertRst.type === ResultType.success) {
-      console.log('Updated Person Header' + JSON.stringify(insertRst));
-
-      if (this.emailIds.length > 0) {
-        this.updateEmails();
-      } else {
-        this.navCtrl.pop();
-      }
-    } else {
-      console.log('Error while updating Person Header' + JSON.stringify(insertRst));
-    }
-  }
-
-  async updateEmails() {
-    let count = this.emailIds.length;
-    for (const mail of this.emailIds) {
-      const insertedData = await this.unviredCordovaSdk.dbInsertOrUpdate(AppConstant.TABLE_NAME_E_MAIL, mail, false);
-      const fetch = await this.unviredCordovaSdk.dbSelect(AppConstant.TABLE_NAME_E_MAIL, '');
-      console.log('fetch >>>> ' + JSON.stringify(fetch));
-      if (insertedData.type === ResultType.success) {
-        console.log('Updated E_MAIL' + JSON.stringify(insertedData));
-        count = count - 1;
-        if (count === 0) {
-          this.events.sub.next('');
-          this.navCtrl.pop();
-        }
-      } else {
-        console.log('Error while updating E_MAIL' + JSON.stringify(insertedData));
-        count = count - 1;
-        if (count === 0) {
-          this.events.sub.next('');
-          this.navCtrl.pop();
-        }
-      }
+  async updateHeaders() {
+    const result = await this.unviredCordovaSdk.dbDelete(AppConstant.TABLE_NAME_PERSON_HEADER, 'PERSNUMBER = "' + 0 + '"');
+    console.log('Deleted record ###### ' + JSON.stringify(result));
+    if (result.type === ResultType.success) {
+      const rslt = await this.unviredCordovaSdk.dbDelete(AppConstant.TABLE_NAME_E_MAIL, 'PERSNUMBER = "' + 0 + '"');
+      console.log('Delete record of table email ' + JSON.stringify(rslt));
+      this.isupdate = true;
+      this.savePersonHeaderToDB();
     }
   }
 
